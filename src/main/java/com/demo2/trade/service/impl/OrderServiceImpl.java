@@ -6,6 +6,7 @@ package com.demo2.trade.service.impl;
 import java.util.List;
 
 import com.demo2.support.dao.BasicDao;
+import com.demo2.support.entity.Entity;
 import com.demo2.trade.entity.Order;
 import com.demo2.trade.service.OrderService;
 
@@ -50,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> listOfOrders() {
+	public List<Entity<?>> listOfOrders() {
 		return dao.loadAll(new Order());
 	}
 

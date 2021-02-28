@@ -6,11 +6,13 @@ package com.demo2.trade.service.impl;
 import java.util.List;
 
 import com.demo2.support.dao.BasicDao;
+import com.demo2.support.entity.Entity;
 import com.demo2.trade.entity.Product;
 import com.demo2.trade.service.ProductService;
 
 /**
  * The implement of the product service.
+ * 
  * @author fangang
  */
 public class ProductServiceImpl implements ProductService {
@@ -48,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void deleteProductList(List<Long> ids) {
-		List<Product> listOfProducts = dao.loadForList(ids, new Product());
+		List<Entity<?>> listOfProducts = dao.loadForList(ids, new Product());
 		dao.deleteForList(listOfProducts);
 	}
 
@@ -59,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getProductList(List<Long> ids) {
+	public List<Entity<?>> getProductList(List<Long> ids) {
 		return dao.loadForList(ids, new Product());
 	}
 }

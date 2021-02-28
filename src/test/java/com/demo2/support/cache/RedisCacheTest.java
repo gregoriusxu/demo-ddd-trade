@@ -1,27 +1,26 @@
 package com.demo2.support.cache;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
-import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.demo2.support.cache.RedisCache;
+import com.demo2.support.entity.Entity;
 import com.demo2.support.entity.User;
-import com.demo2.trade.TradeApplication;
 
 /**
  * @author fangang
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=TradeApplication.class)
+//@SpringBootTest(classes=TradeApplication.class)
 public class RedisCacheTest {
 	@Autowired
 	private RedisCache redisCache;
@@ -33,12 +32,12 @@ public class RedisCacheTest {
 		redisCache.set(vo);
 		User actual = redisCache.get(key, new User());
 		assertThat(actual, equalTo(vo));
-		
+
 		redisCache.delete(key, new User());
 		User deleted = redisCache.get(key, new User());
 		assertNull(deleted);
 	}
-	
+
 	@Test
 	public void testSetGetAndDeleteForList() {
 		List<User> list = new ArrayList<>();
@@ -51,13 +50,14 @@ public class RedisCacheTest {
 		User vo2 = new User(key2, "Rose");
 		list.add(vo2);
 		ids.add(key2);
-		
+
 		redisCache.setForList(list);
-		List<User> actual = redisCache.getForList(ids, new User());
+		Collection<Entity<?>> actual = redisCache.getForList(ids, new User());
 		assertThat(actual, equalTo(list));
-		
+
 		redisCache.deleteForList(ids, new User());
-		List<User> deleted = redisCache.getForList(ids, new User());
-		for(User vo : deleted) assertNull(vo);
+		Collection<Entity<?>> deleted = redisCache.getForList(ids, new User());
+		for (Entity<?> vo : deleted)
+			assertNull(vo);
 	}
 }

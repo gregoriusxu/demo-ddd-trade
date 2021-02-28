@@ -5,6 +5,7 @@ package com.demo2.trade.service;
 
 import java.util.List;
 
+import com.demo2.support.entity.Entity;
 import com.demo2.trade.entity.Order;
 
 /**
@@ -15,21 +16,25 @@ public interface OrderService {
 	 * @param order
 	 */
 	public void createOrder(Order order);
+
 	/**
 	 * @param order
 	 */
 	public void modifyOrder(Order order);
+
 	/**
 	 * @param order
 	 */
 	public void deleteOrder(Order order);
+
 	/**
 	 * @param id
 	 * @return
 	 */
 	public Order checkOrder(Long id);
+
 	/**
 	 * @return
 	 */
-	public List<Order> listOfOrders();
+	public List<Entity<?>> listOfOrders();
 }
